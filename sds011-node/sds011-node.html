@@ -1,0 +1,73 @@
+<script type="text/javascript">
+  RED.nodes.registerType('rpi-sds011', {
+    category: 'Raspberry Pi',
+    defaults: {
+      name: {value: 'SDS011'},
+      port: {value: '/dev/serial0', required: true},
+    },
+    inputs: 1,
+    inputLabels: 'Command',
+    outputs: 3,
+    outputLabels: ['PM2.5', 'PM10', 'info'],
+    color: '#E9967A',
+    icon: "serial.png",
+    label: function() {
+      return this.name || 'SDS011';
+    },
+  });
+</script>
+
+<script type="text/x-red" data-template-name="rpi-sds011">
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-port"><i class="icon-tag"></i>Device (e.g.RPi3: /dev/serial0)</label>
+    <input type="text" id="node-input-port" placeholder="/dev/serial0">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="rpi-sds011">
+  <h3>Outputs</h3>
+  <ol class="node-ports">
+    <li>PM2.5
+      <dl class="message-properties">
+        <dt>payload: <span class="property-type">number</span></dt>
+        <dd>PM2.5 value in ug/m3</dd>
+      </dl>
+    </li>
+    <li>PM10
+      <dl class="message-properties">
+        <dt>payload: <span class="property-type">number</span></dt>
+        <dd>PM10 value in ug/m3</dd>
+      </dl>
+    </li>
+    <li>Info
+      <dl class="message-properties">
+        <dt>payload: <span class="property-type">string</span></dt>
+        <dd>Additional sensor information, such as measure frequency, working mode etc.</dd>
+      </dl>
+    </li>
+  </ol>
+  <h3>Input</h3>
+  <ol class="node-ports">
+    <li>Commands
+      <dl class="message-properties">
+        <dt>payload: <span class="property-type">json | string</span></dt>
+        <dd>
+          setDataReportingMode(parameter);
+          getDataReportingMode();
+          queryData();
+          setDeviceId(parameter);
+          setStatus(parameter);
+          getStatus();
+          setWorkingPeriod(parameter);
+          setContinuousMode()
+          getWorkingPeriod();
+          checkFirmwareVersion();
+        </dd>
+      </dl>
+    </li>
+  </ol>
+</script>
